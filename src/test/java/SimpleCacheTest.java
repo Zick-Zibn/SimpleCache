@@ -48,6 +48,6 @@ public class SimpleCacheTest {
         List<String> src = List.of("qwert", "venrm", "sff", "ssss", "gbvdavAV", "ryrehewe");
         List<String> dest = new ArrayList<>();
         Filter.copyIf(src, dest, o -> o.length() > 4);
-        assertEquals(dest);
+        assertEquals(dest.size(), 4);
     }
 }
