@@ -3,8 +3,8 @@ package org.example;
 import java.util.LinkedHashMap;
 
 public class LimitedCache<K, V> {
-    private int maxSize;
-    private LinkedHashMap<K, V> cache;
+    private final int maxSize;
+    private final LinkedHashMap<K, V> cache;
 
     public LimitedCache(int maxSize) {
 
@@ -27,7 +27,7 @@ public class LimitedCache<K, V> {
     }
     public V get(K key){
 
-        return cache.containsKey(key) ? cache.get(key) : null;
+        return cache.get(key);
     }
     public boolean containsKey(K key) {
 
