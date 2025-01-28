@@ -20,7 +20,7 @@ public class LimitedCache<K, V> {
         }*/
         /* Обновляем значение по ключу*/
         cache.compute(key, ((k, v) -> v = value));
-        /* тут мы можем выйти за границы размера кеша, но не надолго. Если в методе computeIfAbsent
+        /* тут мы можем выйти за границы размера кеша, но не надолго. Если в методе computeIfPresent
            произойдет вставка нового элемента. В следующем шаге удалится первый элемент и размер придет в норму*/
         cache.computeIfPresent(key, (k, v) -> value);
         if (cache.size() > maxSize)
