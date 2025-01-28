@@ -9,21 +9,24 @@ public class LimitedCache<K, V> {
     public LimitedCache(int maxSize) {
 
         this.maxSize = maxSize;
-        cache = new LinkedHashMap<>();
+        this.cache = new LinkedHashMap<>();
     }
 
     public void put(K key, V value) {
 
-        if (cache.containsKey(key)) {
+        /*if (cache.containsKey(key)) {
             cache.replace(key, value);
             return;
-        }
-        //cache.computeIfPresent();
-
-        if (cache.size() == maxSize)
+        }*/
+        /* Обновляем значение по ключу*/
+        cache.compute(key, ((k, v) -> v = value));
+        /* тут мы можем выйти за границы размера кеша, но не надолго. Если в методе computeIfAbsent
+           произойдет вставка нового элемента. В следующем шаге удалится первый элемент и размер придет в норму*/
+        cache.computeIfPresent(key, (k, v) -> value);
+        if (cache.size() > maxSize)
             cache.remove(cache.firstEntry().getKey());
 
-        cache.putLast(key, value);
+        //cache.putLast(key, value);
     }
     public V get(K key){
 
